@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube動画再生</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        iframe {
+            width: 80%;
+            height: 450px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>YouTube 規制突破サイト！</h1>
+    <h2>Made by HirokiDebug</h2>
+    <input type="text" id="videoURL" placeholder="YouTubeのURLを入力してください">
+    <button onclick="playVideo()">再生</button>
+    <br>
+    <iframe id="videoPlayer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <script>
+        function playVideo() {
+            var url = document.getElementById("videoURL").value;
+            var videoPlayer = document.getElementById("videoPlayer");
+
+            console.log("入力されたURL: ", url); // URLが正しく取得されているか確認
+
+            // URLが空でないか確認
+            if (!url) {
+                alert("URLを入力してください。");
+                return;
+            }
+
+            // YouTubeの動画IDを抽出する正規表現
+            var videoIdMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+
+            if (videoIdMatch && videoIdMatch[1]) {
+                var videoId = videoIdMatch[1];
+                var embedUrl = "https://www.youtube.com/embed/" + videoId;
+
+                videoPlayer.src = embedUrl;
+            } else {
+                alert("有効なYouTubeのURLを入力してください。");
+            }
+        }
+    </script>
+</body>
+</html>
